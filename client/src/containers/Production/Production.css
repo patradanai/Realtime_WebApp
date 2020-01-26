@@ -1,0 +1,21 @@
+.Production {
+  padding-top: 20px;
+}
+
+.datePicker {
+  text-align: right;
+}
+
+.datePicker h4 span {
+  margin: 10px;
+}
+
+.datePicker h4 .Icon {
+}
+
+.barOverview {
+  position: relative;
+  left: 10%;
+  margin: 50px;
+  text-align: center;
+}

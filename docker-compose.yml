@@ -1,0 +1,26 @@
+version: "3"
+services:
+  frontend:
+    container_name: WEB_APP
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: vikasraj/awesome_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./client:/usr/src/app
+  backend:
+    container_name: SERVER_APP
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: vikasraj/awesome_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/usr/src/app
+networks:
+  default:
+    external:
+      name: iotnetwork
