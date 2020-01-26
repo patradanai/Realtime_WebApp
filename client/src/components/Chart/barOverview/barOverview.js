@@ -28,6 +28,15 @@ const barOverview = props => {
         <YAxis />
         <Tooltip />
         <Legend />
+        <Bar dataKey="NMPSC-401" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-402" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-403" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-404" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-405" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-406" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-407" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-408" stackId="a" fill="#8884d8" />
+        <Bar dataKey="NMPSC-409" stackId="a" fill="#8884d8" />
       </BarChart>
     </React.Fragment>
   );

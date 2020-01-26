@@ -16,7 +16,7 @@ import axios from "axios";
 import BarLossCode from "../../components/Chart/BarStack/BarLossCode";
 import BarProduction from "../../components/Chart/BarStack/BarProduction";
 import BarOverview from "../../components/Chart/barOverview/barOverview";
-
+import moment from "moment";
 import {
   ws_connect,
   ws_connected,
@@ -30,6 +30,7 @@ const Production = () => {
   const msgPacket = useSelector(state => state.MQTT.msgProduction);
   const [packet, setPacket] = useState([]);
   const [production, setProduction] = useState([]);
+  const [overview, setOverView] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [finishDate, setfinishDate] = useState(new Date());
   const [hoverMouse, sethoverMouse] = useState(false);
@@ -167,11 +168,11 @@ const Production = () => {
     try {
       const res = await axios.get("/api/production/overview/", {
         params: {
-          startDate: startDate.toString("YYYY-MM-DD"),
-          finishDate: finishDate.toString("YYYY-MM-DD")
+          startDate: moment(startDate).format("YYYY-MM-DD"),
+          finishDate: moment(finishDate).format("YYYY-MM-DD")
         }
       });
-      console.log(res);
+      setOverView(res.data);
       setShowOverview(true);
     } catch (error) {
       console.log(error);
@@ -231,7 +232,9 @@ const Production = () => {
           </span>
         </h4>
       </div>
-      <div className="barOverview">{showOverview ? <BarOverview /> : null}</div>
+      <div className="barOverview">
+        {showOverview ? <BarOverview data={overview} /> : null}
+      </div>
     </Container>
   );
 };
