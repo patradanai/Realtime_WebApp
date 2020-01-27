@@ -7,13 +7,16 @@ import {
   Dimmer,
   Segment,
   Loader,
-  Image
+  Image,
+  Table
 } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Production.css";
 import ReactdatePicker from "../../components/datePicker/datePicker";
 import axios from "axios";
 import BarLossCode from "../../components/Chart/BarStack/BarLossCode";
+import PopupGent from "./Popup";
+import DetailPeriod from "../../components/Table/TableTime/tablePeriod";
 import BarProduction from "../../components/Chart/BarStack/BarProduction";
 import BarOverview from "../../components/Chart/barOverview/barOverview";
 import moment from "moment";
@@ -35,17 +38,7 @@ const Production = () => {
   const [finishDate, setfinishDate] = useState(new Date());
   const [hoverMouse, sethoverMouse] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
-  const MachineName = [
-    "C401",
-    "C402",
-    "C403",
-    "C404",
-    "C405",
-    "C406",
-    "C407",
-    "C408",
-    "C409"
-  ];
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(ws_connect());
@@ -59,6 +52,17 @@ const Production = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    const MachineName = [
+      "C401",
+      "C402",
+      "C403",
+      "C404",
+      "C405",
+      "C406",
+      "C407",
+      "C408",
+      "C409"
+    ];
     const setTime = setInterval(() => {
       const updateChart = () => {
         setPacket(packet => {
@@ -97,9 +101,20 @@ const Production = () => {
     return () => {
       clearInterval(setTime);
     };
-  }, [MachineName, msgPacket]);
+  }, [msgPacket]);
 
   useEffect(() => {
+    const MachineName = [
+      "C401",
+      "C402",
+      "C403",
+      "C404",
+      "C405",
+      "C406",
+      "C407",
+      "C408",
+      "C409"
+    ];
     const getData = async () => {
       const res = await axios.get("/api/production/");
       setProduction(production => {
@@ -180,62 +195,63 @@ const Production = () => {
   };
 
   return (
-    <Container>
-      <br />
-      <Header as="h2" icon="plug" content="Live Production Index Monitoring" />
-      <Grid container columns={2}>
-        <Grid.Column>
-          <BarLossCode data={packet} />
-        </Grid.Column>
-        <Grid.Column>
-          <BarProduction data={production} />
-          <Grid columns={1}>
-            <Grid.Column>
-              <h5>รายละเอียด</h5>
-              <h6>D = Day , N = Night</h6>
-              <ul>
-                <li>Break1 : 7:00 - 9:00, 19:00 - 21:00</li>
-                <li>Break2 : 9:00 - 12:00. 21:00 - 00:00</li>
-                <li>Break3 : 12:00 - 14:00, 00:00 - 02:00</li>
-                <li>Break4 : 14:00 - 16:00, 02:00 - 04:00</li>
-                <li>Break5 : 16:00 - 19:00, 04:00 - 07:00</li>
-              </ul>
-            </Grid.Column>
-          </Grid>
-        </Grid.Column>
-      </Grid>
-      <br />
-      <hr />
-      <Header as="h2" icon="settings" content="Production Index History" />
-      <br />
-      <div className="datePicker">
-        <h4>
-          <span>From</span>
-          <ReactdatePicker
-            selected={startDate}
-            Change={data => setStartDate(data)}
-          />
-          <span>To</span>
-          <ReactdatePicker
-            selected={finishDate}
-            Change={data => setfinishDate(data)}
-          />
-          <span className="Icon">
-            <Icon
-              name="refresh"
-              className={hoverMouse ? "loading" : "null"}
-              size="big"
-              onMouseEnter={() => sethoverMouse(true)}
-              onMouseLeave={() => sethoverMouse(false)}
-              onClick={handleOverview}
+    <React.Fragment>
+      <Container>
+        <br />
+        <Header
+          as="h2"
+          icon="plug"
+          content="Live Production Index Monitoring"
+        />
+        <Grid container columns={2}>
+          <Grid.Column>
+            <BarProduction data={production} />
+            <Grid columns={1}>
+              <Grid.Column>
+                <div className="TableTime">
+                  <DetailPeriod />
+                </div>
+              </Grid.Column>
+            </Grid>
+          </Grid.Column>
+          <Grid.Column>
+            <BarLossCode data={packet} />
+            <PopupGent />
+          </Grid.Column>
+        </Grid>
+        <br />
+        <hr />
+        <Header as="h2" icon="settings" content="Production Index History" />
+        <br />
+        <div className="datePicker">
+          <h4>
+            <span>From</span>
+            <ReactdatePicker
+              selected={startDate}
+              Change={data => setStartDate(data)}
             />
-          </span>
-        </h4>
-      </div>
-      <div className="barOverview">
-        {showOverview ? <BarOverview data={overview} /> : null}
-      </div>
-    </Container>
+            <span>To</span>
+            <ReactdatePicker
+              selected={finishDate}
+              Change={data => setfinishDate(data)}
+            />
+            <span className="Icon">
+              <Icon
+                name="refresh"
+                className={hoverMouse ? "loading" : "null"}
+                size="big"
+                onMouseEnter={() => sethoverMouse(true)}
+                onMouseLeave={() => sethoverMouse(false)}
+                onClick={handleOverview}
+              />
+            </span>
+          </h4>
+        </div>
+        <div className="barOverview">
+          {showOverview ? <BarOverview data={overview} /> : null}
+        </div>
+      </Container>
+    </React.Fragment>
   );
 };
 

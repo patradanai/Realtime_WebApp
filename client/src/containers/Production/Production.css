@@ -4,18 +4,18 @@
 
 .datePicker {
   text-align: right;
+  margin-bottom: 50px;
 }
 
 .datePicker h4 span {
   margin: 10px;
 }
 
-.datePicker h4 .Icon {
+h4 {
+  margin: 10px;
 }
 
-.barOverview {
-  position: relative;
-  left: 10%;
-  margin: 50px;
-  text-align: center;
+.TableTime {
+  margin: 20px;
+  font-size: 0.9em;
 }
