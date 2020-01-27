@@ -6,7 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  Label
 } from "recharts";
 
 const BarLossCode = props => {
@@ -26,7 +27,9 @@ const BarLossCode = props => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" stroke="#8884d8" />
-        <YAxis />
+        <YAxis>
+          <Label value="pcs" offset={-22} position="insideTop" />
+        </YAxis>
         <Tooltip />
         <Legend />
         <Bar dataKey="D_Break1" stackId="a" fill="#8884d8" />

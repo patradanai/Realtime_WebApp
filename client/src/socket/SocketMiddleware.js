@@ -18,7 +18,7 @@ const SocketMiddleware = store => {
         }
 
         // Connect to MQTT BROKER VIA WEBSOCKET
-        mqttSocket = mqtt.connect("mqtt://mtl-700-noa55.co.murata.local:9001");
+        mqttSocket = mqtt.connect("mqtt://1e85d2d1.ngrok.io");
 
         store.dispatch(ws_connected());
 

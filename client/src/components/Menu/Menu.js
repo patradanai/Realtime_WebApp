@@ -45,9 +45,9 @@ export default class MenuExampleStackable extends Component {
               <Link to="/brt">BRT Management</Link>
             </Menu.Item>
 
-            <Menu.Item name="About">
+            <Menu.Item name="Maintanance">
               <Icon name="pencil alternate" />
-              <Link to="/about">About</Link>
+              <Link to="/about">Maintanance</Link>
             </Menu.Item>
           </Menu>
         </div>
