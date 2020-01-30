@@ -18,6 +18,12 @@ const losscode = require("./routes/production");
 
 app.use("/api/production", losscode);
 
+// History ROUTE
+
+const history = require("./routes/history");
+
+app.use("/api/history", history);
+
 app.listen(5000, () => {
   console.log("SERVER RUNNING");
 });
