@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Menu,
-  Container,
-  Icon,
-  Segment,
-  Header,
-  Button
-} from "semantic-ui-react";
+import { Menu, Container, Icon } from "semantic-ui-react";
 import logo from "../../MyIcon.png";
 import { Link } from "react-router-dom";
 import "./Menu.css";
@@ -23,11 +16,6 @@ export default class MenuExampleStackable extends Component {
           <Menu stackable>
             <Menu.Item>
               <img src={logo} alt="" />
-            </Menu.Item>
-
-            <Menu.Item name="Home">
-              <Icon name="home" />
-              <Link to="/home">Home</Link>
             </Menu.Item>
 
             <Menu.Item name="Live Monitor">
@@ -47,7 +35,12 @@ export default class MenuExampleStackable extends Component {
 
             <Menu.Item name="Maintanance">
               <Icon name="pencil alternate" />
-              <Link to="/about">Maintanance</Link>
+              <Link to="/maintain">Maintanance</Link>
+            </Menu.Item>
+
+            <Menu.Item name="History">
+              <Icon name="history" />
+              <Link to="/history">History</Link>
             </Menu.Item>
           </Menu>
         </div>

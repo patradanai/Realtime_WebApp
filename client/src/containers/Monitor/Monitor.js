@@ -117,7 +117,9 @@ class Monitor extends Component {
               <Statistic.Label>Production</Statistic.Label>
             </Statistic>
             <Statistic color="red">
-              <Statistic.Value>{this.state.Diff}</Statistic.Value>
+              <Statistic.Value>
+                {this.state.Diff ? this.state.Diff : 0}
+              </Statistic.Value>
               <Statistic.Label>Diff</Statistic.Label>
             </Statistic>
             <Statistic color="purple">

@@ -6,7 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  Label
 } from "recharts";
 
 const BarLossCode = props => {
@@ -26,7 +27,9 @@ const BarLossCode = props => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" stroke="#8884d8" />
-        <YAxis />
+        <YAxis>
+          <Label value="Minute" offset={-20} position="insideTop" />
+        </YAxis>
         <Tooltip />
         <Legend />
         <Bar dataKey="SU" stackId="a" fill="#8884d8" />
@@ -34,7 +37,7 @@ const BarLossCode = props => {
         <Bar dataKey="WS4" stackId="a" fill="#00C49F" />
         <Bar dataKey="WR3" stackId="a" fill="#FFBB28" />
         <Bar dataKey="WR4" stackId="a" fill="#FF8042" />
-        <Bar dataKey="BM" stackId="a" fill="#ff9933" />
+        <Bar dataKey="BM" stackId="a" fill="red" />
         <Bar dataKey="RW" stackId="a" fill="#669900" />
         <Bar dataKey="ST" stackId="a" fill="#4d4dff" />
         <Bar dataKey="SS" stackId="a" fill="#ffff66" />
@@ -49,7 +52,7 @@ const BarLossCode = props => {
         <Bar dataKey="PM" stackId="a" fill="#66ffd9" />
         <Bar dataKey="WT" stackId="a" fill="#ff66d9" />
         <Bar dataKey="NP" stackId="a" fill="8c66ff" />
-        <Bar dataKey="Unknown" stackId="a" fill="#ff8c66" />
+        <Bar dataKey="Unknown" stackId="a" fill="gray" />
         <Bar dataKey="ShortStop" stackId="a" fill="#82ca9d" />
       </BarChart>
     </React.Fragment>

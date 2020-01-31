@@ -9,8 +9,23 @@ import {
   Legend,
   Label
 } from "recharts";
+import { scaleOrdinal } from "d3-scale";
+import { schemeCategory10 } from "d3-scale-chromatic";
 
 const BarLossCode = props => {
+  const Break = [
+    "D_Break1",
+    "D_Break2",
+    "D_Break3",
+    "D_Break4",
+    "D_Break5",
+    "N_Break1",
+    "N_Break2",
+    "N_Break3",
+    "N_Break4",
+    "N_Break5"
+  ];
+  const colors = scaleOrdinal(schemeCategory10).range();
   return (
     <React.Fragment>
       <h4>Production by Break</h4>
@@ -28,20 +43,13 @@ const BarLossCode = props => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" stroke="#8884d8" />
         <YAxis>
-          <Label value="pcs" offset={-22} position="insideTop" />
+          <Label value="Kpcs" offset={-20} position="insideTop" />
         </YAxis>
         <Tooltip />
         <Legend />
-        <Bar dataKey="D_Break1" stackId="a" fill="#8884d8" />
-        <Bar dataKey="D_Break2" stackId="a" fill="#0088FE" />
-        <Bar dataKey="D_Break3" stackId="a" fill="#00C49F" />
-        <Bar dataKey="D_Break4" stackId="a" fill="#FFBB28" />
-        <Bar dataKey="D_Break5" stackId="a" fill="blue" />
-        <Bar dataKey="N_Break1" stackId="a" fill="#ff9933" />
-        <Bar dataKey="N_Break2" stackId="a" fill="#669900" />
-        <Bar dataKey="N_Break3" stackId="a" fill="#4d4dff" />
-        <Bar dataKey="N_Break4" stackId="a" fill="#4d4dff" />
-        <Bar dataKey="N_Break5" stackId="a" fill="#4d4dff" />
+        {Break.map((data, index) => {
+          return <Bar dataKey={data} stackId="a" fill={colors[index % 20]} />;
+        })}
       </BarChart>
     </React.Fragment>
   );

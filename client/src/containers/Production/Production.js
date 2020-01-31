@@ -51,6 +51,7 @@ const Production = () => {
     };
   }, [dispatch]);
 
+  // HandleLossCode Chart
   useEffect(() => {
     const MachineName = [
       "C401",
@@ -71,26 +72,28 @@ const Production = () => {
             MachineName.map((data, index) => {
               return {
                 name: data,
-                SU: msgPacket[index].SU,
-                WS3: msgPacket[index].WS3,
-                WS4: msgPacket[index].WS4,
-                WR3: msgPacket[index].WR3,
-                WR4: msgPacket[index].WR4,
-                BM: msgPacket[index].BM,
-                RW: msgPacket[index].RW,
-                ST: msgPacket[index].ST,
-                SS: msgPacket[index].SS,
-                WO: msgPacket[index].WO,
-                OJ: msgPacket[index].OJ,
-                CL: msgPacket[index].CL,
-                UC: msgPacket[index].UC,
-                CM: msgPacket[index].CM,
-                WP: msgPacket[index].WP,
-                MS: msgPacket[index].MS,
-                PM: msgPacket[index].PM,
-                WT: msgPacket[index].WT,
-                NP: msgPacket[index].NP,
+                SU: msgPacket[index].SU ? msgPacket[index].SU / 60 : 0,
+                WS3: msgPacket[index].WS3 ? msgPacket[index].WS3 / 60 : 0,
+                WS4: msgPacket[index].WS4 ? msgPacket[index].WS4 / 60 : 0,
+                WR3: msgPacket[index].WR3 ? msgPacket[index].WR3 / 60 : 0,
+                WR4: msgPacket[index].WR4 ? msgPacket[index].WR4 / 60 : 0,
+                BM: msgPacket[index].BM ? msgPacket[index].BM / 60 : 0,
+                RW: msgPacket[index].RW ? msgPacket[index].RW / 60 : 0,
+                ST: msgPacket[index].ST ? msgPacket[index].ST / 60 : 0,
+                SS: msgPacket[index].SS ? msgPacket[index].SS / 60 : 0,
+                WO: msgPacket[index].WO ? msgPacket[index].WO / 60 : 0,
+                OJ: msgPacket[index].OJ ? msgPacket[index].OJ / 60 : 0,
+                CL: msgPacket[index].CL ? msgPacket[index].CL / 60 : 0,
+                UC: msgPacket[index].UC ? msgPacket[index].UC / 60 : 0,
+                CM: msgPacket[index].CM ? msgPacket[index].CM / 60 : 0,
+                WP: msgPacket[index].WP ? msgPacket[index].WP / 60 : 0,
+                MS: msgPacket[index].MS ? msgPacket[index].MS / 60 : 0,
+                PM: msgPacket[index].PM ? msgPacket[index].PM / 60 : 0,
+                WT: msgPacket[index].WT ? msgPacket[index].WT / 60 : 0,
+                NP: msgPacket[index].NP ? msgPacket[index].NP / 60 : 0,
                 Unknown: msgPacket[index].Unknown
+                  ? msgPacket[index].Unknown / 60
+                  : 0
               };
             })
           );
@@ -103,6 +106,7 @@ const Production = () => {
     };
   }, [msgPacket]);
 
+  // HandleProduction Chart
   useEffect(() => {
     const MachineName = [
       "C401",
@@ -123,47 +127,55 @@ const Production = () => {
           MachineName.map((data, index) => {
             return {
               name: data,
-              D_Break1: res.data.recordset[index]["7_9"],
+              D_Break1: res.data.recordset[index]["7_9"] / 1000,
               D_Break2:
                 res.data.recordset[index]["9_12"] > 0
-                  ? res.data.recordset[index]["9_12"] -
-                    res.data.recordset[index]["7_9"]
+                  ? (res.data.recordset[index]["9_12"] -
+                      res.data.recordset[index]["7_9"]) /
+                    1000
                   : null,
               D_Break3:
                 res.data.recordset[index]["12_14"] > 0
-                  ? res.data.recordset[index]["12_14"] -
-                    res.data.recordset[index]["9_12"]
+                  ? (res.data.recordset[index]["12_14"] -
+                      res.data.recordset[index]["9_12"]) /
+                    1000
                   : null,
               D_Break4:
                 res.data.recordset[index]["14_16"] > 0
-                  ? res.data.recordset[index]["14_16"] -
-                    res.data.recordset[index]["12_14"]
+                  ? (res.data.recordset[index]["14_16"] -
+                      res.data.recordset[index]["12_14"]) /
+                    1000
                   : null,
               D_Break5:
                 res.data.recordset[index]["16_19"] > 0
-                  ? res.data.recordset[index]["16_19"] -
-                    res.data.recordset[index]["12_14"]
+                  ? (res.data.recordset[index]["16_19"] -
+                      res.data.recordset[index]["12_14"]) /
+                    1000
                   : null,
-              N_Break1: res.data.recordset[index]["19_21"],
+              N_Break1: res.data.recordset[index]["19_21"] / 1000,
               N_Break2:
                 res.data.recordset[index]["21_0"] > 0
-                  ? res.data.recordset[index]["21_0"] -
-                    res.data.recordset[index]["19_21"]
+                  ? (res.data.recordset[index]["21_0"] -
+                      res.data.recordset[index]["19_21"]) /
+                    1000
                   : null,
               N_Break3:
                 res.data.recordset[index]["0_2"] > 0
-                  ? res.data.recordset[index]["0_2"] -
-                    res.data.recordset[index]["21_0"]
+                  ? (res.data.recordset[index]["0_2"] -
+                      res.data.recordset[index]["21_0"]) /
+                    1000
                   : null,
               N_Break4:
                 res.data.recordset[index]["2_4"] > 0
-                  ? res.data.recordset[index]["2_4"] -
-                    res.data.recordset[index]["0_2"]
+                  ? (res.data.recordset[index]["2_4"] -
+                      res.data.recordset[index]["0_2"]) /
+                    1000
                   : null,
               N_Break5:
                 res.data.recordset[index]["4_7"] > 0
-                  ? res.data.recordset[index]["4_7"] -
-                    res.data.recordset[index]["2_4"]
+                  ? (res.data.recordset[index]["4_7"] -
+                      res.data.recordset[index]["2_4"]) /
+                    1000
                   : null
             };
           })
@@ -179,6 +191,7 @@ const Production = () => {
     };
   }, []);
 
+  // HandleOverview Chart
   const handleOverview = async () => {
     try {
       const res = await axios.get("/api/production/overview/", {

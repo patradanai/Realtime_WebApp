@@ -7,7 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Label
 } from "recharts";
 import { scaleOrdinal } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
@@ -45,7 +46,9 @@ const barOverview = props => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" stroke="#8884d8" />
-          <YAxis />
+          <YAxis>
+            <Label value="pcs" offset={-20} position="insideTop" />
+          </YAxis>
           <Tooltip />
           <Legend />
           {Machine.map((data, index) => {
