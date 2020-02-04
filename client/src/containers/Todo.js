@@ -153,7 +153,7 @@ class Todo extends Component {
     const { items, field1, field2, field3 } = this.state;
     const { isopenModal, isopenConfirm } = this.state;
     return (
-      <div>
+      <div className="BRTTABLE">
         <div className="ui container">
           <h2 className="ui header">
             <br />

@@ -18,7 +18,7 @@ const SocketMiddleware = store => {
         }
 
         // Connect to MQTT BROKER VIA WEBSOCKET
-        mqttSocket = mqtt.connect("mqtt://172.16.76.55:9001");
+        mqttSocket = mqtt.connect("mqtt://78625b72.ngrok.io");
 
         store.dispatch(ws_connected());
 
@@ -32,27 +32,37 @@ const SocketMiddleware = store => {
         break;
       case actiontypes.MQTT_ONSTATUS:
         if (store.getState().MQTT.connected) {
-          mqttSocket.on("connect", () => {
-            console.log("Connected MQTT");
-            mqttSocket.subscribe("/REALTIME/NEWLINE/PARSER/STATUS/#");
-          });
-          mqttSocket.on("message", (topic, message) => {
-            store.dispatch(ws_onMessage(JSON.parse(message.toString())));
-          });
+          try {
+            mqttSocket.on("connect", () => {
+              console.log("Connected MQTT");
+              mqttSocket.subscribe("/REALTIME/NEWLINE/PARSER/STATUS/#");
+            });
+            mqttSocket.on("message", (topic, message) => {
+              store.dispatch(ws_onMessage(JSON.parse(message.toString())));
+            });
+          } catch (err) {
+            console.log(err);
+            throw err;
+          }
         }
         break;
       case actiontypes.MQTT_ONPRODUCTION:
         if (store.getState().MQTT.connected) {
-          mqttSocket.on("connect", () => {
-            console.log("Connected MQTT");
-            mqttSocket.subscribe("/REALTIME/NEWLINE/PARSER/PRODUCTION/#");
-          });
-          mqttSocket.on("message", (topic, message) => {
-            store.dispatch(
-              ws_onMessageProduction(JSON.parse(message.toString()))
-            );
-            console.log(JSON.parse(message.toString()));
-          });
+          try {
+            mqttSocket.on("connect", () => {
+              console.log("Connected MQTT");
+              mqttSocket.subscribe("/REALTIME/NEWLINE/PARSER/PRODUCTION/#");
+            });
+            mqttSocket.on("message", (topic, message) => {
+              store.dispatch(
+                ws_onMessageProduction(JSON.parse(message.toString()))
+              );
+              console.log(JSON.parse(message.toString()));
+            });
+          } catch (err) {
+            console.log(err);
+            throw err;
+          }
         }
         break;
       default:

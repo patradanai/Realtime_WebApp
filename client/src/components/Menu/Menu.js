@@ -15,7 +15,7 @@ export default class MenuExampleStackable extends Component {
         <div className="MenuBar">
           <Menu stackable>
             <Menu.Item>
-              <img src={logo} alt="" />
+              <h2>MT700</h2>
             </Menu.Item>
 
             <Menu.Item name="Live Monitor">

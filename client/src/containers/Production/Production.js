@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Header,
-  Grid,
-  Icon,
-  Dimmer,
-  Segment,
-  Loader,
-  Image,
-  Table
-} from "semantic-ui-react";
+import { Container, Header, Grid, Icon } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Production.css";
 import ReactdatePicker from "../../components/datePicker/datePicker";
@@ -209,61 +199,68 @@ const Production = () => {
 
   return (
     <React.Fragment>
-      <Container>
-        <br />
-        <Header
-          as="h2"
-          icon="plug"
-          content="Live Production Index Monitoring"
-        />
-        <Grid container columns={2}>
-          <Grid.Column>
-            <BarProduction data={production} />
-            <Grid columns={1}>
-              <Grid.Column>
-                <div className="TableTime">
-                  <DetailPeriod />
-                </div>
-              </Grid.Column>
-            </Grid>
-          </Grid.Column>
-          <Grid.Column>
-            <BarLossCode data={packet} />
-            <PopupGent />
-          </Grid.Column>
-        </Grid>
-        <br />
-        <hr />
-        <Header as="h2" icon="settings" content="Production Index History" />
-        <br />
-        <div className="datePicker">
-          <h4>
-            <span>From</span>
-            <ReactdatePicker
-              selected={startDate}
-              Change={data => setStartDate(data)}
-            />
-            <span>To</span>
-            <ReactdatePicker
-              selected={finishDate}
-              Change={data => setfinishDate(data)}
-            />
-            <span className="Icon">
-              <Icon
-                name="refresh"
-                className={hoverMouse ? "loading" : "null"}
-                size="big"
-                onMouseEnter={() => sethoverMouse(true)}
-                onMouseLeave={() => sethoverMouse(false)}
-                onClick={handleOverview}
+      <div className="bodyProduction">
+        <Container>
+          <Header as="h2" icon>
+            <Icon name="chart bar" />
+            Production
+            <Header.Subheader>Manage your production</Header.Subheader>
+          </Header>
+          <br />
+          <Header
+            as="h2"
+            icon="plug"
+            content="Live Production Index Monitoring"
+          />
+          <Grid container columns={2}>
+            <Grid.Column>
+              <BarProduction data={production} />
+              <Grid columns={1}>
+                <Grid.Column>
+                  <div className="TableTime">
+                    <DetailPeriod />
+                  </div>
+                </Grid.Column>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column>
+              <BarLossCode data={packet} />
+              <PopupGent />
+            </Grid.Column>
+          </Grid>
+          <br />
+          <hr />
+          <Header as="h2" icon="settings" content="Production Index History" />
+          <br />
+          <div className="datePicker">
+            <h4>
+              <span>From</span>
+              <ReactdatePicker
+                selected={startDate}
+                Change={data => setStartDate(data)}
               />
-            </span>
-          </h4>
-        </div>
-        <div className="barOverview">
-          {showOverview ? <BarOverview data={overview} /> : null}
-        </div>
-      </Container>
+              <span>To</span>
+              <ReactdatePicker
+                selected={finishDate}
+                Change={data => setfinishDate(data)}
+              />
+              <span className="Icon">
+                <Icon
+                  name="refresh"
+                  className={hoverMouse ? "loading" : "null"}
+                  size="big"
+                  onMouseEnter={() => sethoverMouse(true)}
+                  onMouseLeave={() => sethoverMouse(false)}
+                  onClick={handleOverview}
+                />
+              </span>
+            </h4>
+          </div>
+          <div className="barOverview">
+            {showOverview ? <BarOverview data={overview} /> : null}
+          </div>
+        </Container>
+      </div>
     </React.Fragment>
   );
 };

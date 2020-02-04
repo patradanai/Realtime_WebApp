@@ -1,0 +1,11 @@
+.datePick {
+  text-align: right;
+  margin-bottom: 50px;
+}
+
+.datePick h4 span {
+  margin: 10px;
+}
+hr {
+  margin: 20px;
+}
