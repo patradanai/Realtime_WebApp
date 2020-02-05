@@ -18,7 +18,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, logger, SocketMiddleware))
 );
 
-axios.defaults.baseURL = "http://d11f8a78.ngrok.io";
+axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.headers.common["Authorization"] = "AUTH TOKEN";
 axios.defaults.headers.post["Content-Type"] = "applocation/json";
 

@@ -6,7 +6,7 @@ const sql = require("mssql");
 const dbConfig = {
   user: "sa",
   password: "qwerty@1",
-  server: "mtl-700-noa55",
+  server: "172.16.73.146",
   database: "MT740_LOSSCODE"
 };
 

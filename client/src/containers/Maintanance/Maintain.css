@@ -1,3 +1,15 @@
 .bodyContainer {
   margin: 20px;
 }
+
+.search {
+  text-align: right;
+}
+
+.listProblem {
+  text-align: left;
+}
+
+.pagination {
+  text-align: center;
+}

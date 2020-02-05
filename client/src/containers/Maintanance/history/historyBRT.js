@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Icon, Table } from "semantic-ui-react";
+import { Icon, Table, Segment } from "semantic-ui-react";
+import axios from "axios";
 import ReactdatePicker from "../../../components/datePicker/datePicker";
 import "./historyBRT.css";
 
@@ -7,6 +8,23 @@ const HistoryBRT = props => {
   const [startDate, setStartDate] = useState(new Date());
   const [finishDate, setfinishDate] = useState(new Date());
   const [hoverMouse, sethoverMouse] = useState(false);
+  const [datahistory, setdataHistory] = useState([]);
+
+  const Requesthistory = async () => {
+    try {
+      const res = await axios.get("/api/maintain/", {
+        params: {
+          stateDate: startDate,
+          finishDate: finishDate
+        }
+      });
+      console.log(res);
+      setdataHistory([...res.data.recordset]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="datePick">
@@ -28,28 +46,20 @@ const HistoryBRT = props => {
               size="big"
               onMouseEnter={() => sethoverMouse(true)}
               onMouseLeave={() => sethoverMouse(false)}
+              onClick={Requesthistory}
             />
           </span>
         </h4>
       </div>
       <div className="Table">
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Status</Table.HeaderCell>
-              <Table.HeaderCell>Notes</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            <Table.Row negative>
-              <Table.Cell>Jill</Table.Cell>
-              <Table.Cell>Unknown</Table.Cell>
-              <Table.Cell>None</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table>
+        <Segment.Group>
+          <Segment>
+            <h1>TEST</h1>
+          </Segment>
+          <Segment secondary>
+            <h1>TEST</h1>
+          </Segment>
+        </Segment.Group>
       </div>
     </React.Fragment>
   );

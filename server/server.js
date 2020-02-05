@@ -24,6 +24,10 @@ const history = require("./routes/history");
 
 app.use("/api/history", history);
 
+const maintain = require("./routes/maintain");
+
+app.use("/api/maintain", maintain);
+
 app.listen(5000, () => {
   console.log("SERVER RUNNING");
 });

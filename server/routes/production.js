@@ -7,7 +7,7 @@ const moment = require("moment");
 const dbConfig = {
   user: "sa",
   password: "qwerty@1",
-  server: "mt700svr",
+  server: "172.16.73.146",
   database: "MT700PDDB"
 };
 

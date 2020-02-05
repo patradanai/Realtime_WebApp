@@ -131,7 +131,9 @@ const History = () => {
                         {data.Details}
                       </Table.Cell>
                       <Table.Cell key={index + "Timedate"}>
-                        {moment(data.timedate).format("YYYY-MM-DD")}
+                        {moment(data.timedate).format(
+                          "วันที่ DD/MM/YYYY เวลา hh:mm:ss"
+                        )}
                       </Table.Cell>
                     </Table.Row>
                   );
@@ -153,7 +155,7 @@ const History = () => {
           lastItem={null}
           siblingRange={1}
           onPageChange={handlePage}
-          totalPages={10}
+          totalPages={Math.ceil(payload.length / itempage)}
         />
       </div>
     </React.Fragment>
