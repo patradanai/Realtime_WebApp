@@ -5,7 +5,6 @@ import "./Production.css";
 import ReactdatePicker from "../../components/datePicker/datePicker";
 import axios from "axios";
 import BarLossCode from "../../components/Chart/BarStack/BarLossCode";
-import PopupGent from "./Popup";
 import DetailPeriod from "../../components/Table/TableTime/tablePeriod";
 import BarProduction from "../../components/Chart/BarStack/BarProduction";
 import BarOverview from "../../components/Chart/barOverview/barOverview";
@@ -225,7 +224,6 @@ const Production = () => {
             </Grid.Column>
             <Grid.Column>
               <BarLossCode data={packet} />
-              <PopupGent />
             </Grid.Column>
           </Grid>
           <br />
@@ -233,28 +231,30 @@ const Production = () => {
           <Header as="h2" icon="settings" content="Production Index History" />
           <br />
           <div className="datePicker">
-            <h4>
-              <span>From</span>
-              <ReactdatePicker
-                selected={startDate}
-                Change={data => setStartDate(data)}
+            <span>
+              <h4>From</h4>
+            </span>
+            <ReactdatePicker
+              selected={startDate}
+              Change={data => setStartDate(data)}
+            />
+            <span>
+              <h4>To</h4>
+            </span>
+            <ReactdatePicker
+              selected={finishDate}
+              Change={data => setfinishDate(data)}
+            />
+            <span className="Icon">
+              <Icon
+                name="refresh"
+                className={hoverMouse ? "loading" : "null"}
+                size="big"
+                onMouseEnter={() => sethoverMouse(true)}
+                onMouseLeave={() => sethoverMouse(false)}
+                onClick={handleOverview}
               />
-              <span>To</span>
-              <ReactdatePicker
-                selected={finishDate}
-                Change={data => setfinishDate(data)}
-              />
-              <span className="Icon">
-                <Icon
-                  name="refresh"
-                  className={hoverMouse ? "loading" : "null"}
-                  size="big"
-                  onMouseEnter={() => sethoverMouse(true)}
-                  onMouseLeave={() => sethoverMouse(false)}
-                  onClick={handleOverview}
-                />
-              </span>
-            </h4>
+            </span>
           </div>
           <div className="barOverview">
             {showOverview ? <BarOverview data={overview} /> : null}

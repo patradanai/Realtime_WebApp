@@ -9,6 +9,7 @@ import {
   ws_disconnected
 } from "../../store/Actions";
 import "./Monitor.css";
+import moment from "moment";
 
 class Monitor extends Component {
   constructor(props) {
@@ -170,7 +171,20 @@ class Monitor extends Component {
                         this.Result(Status[index].Good, Status[index].NG)
                       )}
                       LossCode={Status[index].LossCode}
-                      Elasp={Status[index].ElspTime}
+                      Elasp={
+                        Status[index].ElspTime
+                          ? moment
+                              .utc(
+                                moment
+                                  .duration(
+                                    parseInt(Status[index].ElspTime),
+                                    "second"
+                                  )
+                                  .asMilliseconds()
+                              )
+                              .format("mm:ss")
+                          : null
+                      }
                       Details={Status[index].Details}
                       Operator={Status[index].Operator}
                       Maintanance={Status[index].Maintanance}

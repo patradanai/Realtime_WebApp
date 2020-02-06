@@ -9,7 +9,8 @@ const Livebrt = () => {
   const [filterSearch, setfilterSearch] = useState([]);
   const [page, setPage] = useState(1);
   const [itemPage, setItemPage] = useState([]);
-  const [perPage, setPerpage] = useState(10);
+  // eslint-disable-next-line
+  const [perPage, setPerpage] = useState(5);
 
   useEffect(() => {
     const result = packet.filter(data => {
@@ -24,12 +25,13 @@ const Livebrt = () => {
       (page - 1) * perPage + perPage
     );
     setItemPage([...result]);
-  }, [filterSearch, page]);
+  }, [filterSearch, page, perPage]);
 
   useEffect(() => {
     setTimeout(() => {
       callBackHistory();
     }, 10000);
+    // eslint-disable-next-line
   }, []);
 
   const callBackHistory = async () => {
@@ -42,8 +44,13 @@ const Livebrt = () => {
       }
     });
     setPacket(() => {
+      // eslint-disable-next-line
       return { ...packet }, res.data.recordset;
     });
+  };
+
+  const handleSearch = e => {
+    setEventSearch(e.target.value);
   };
 
   const handlePage = (event, active) => {
@@ -65,7 +72,8 @@ const Livebrt = () => {
                 placeholder="Input Machine No. ( 401 )"
                 onChange
                 value={eventSearch}
-                onChange={event => setEventSearch(event.target.value)}
+                // eslint-disable-next-line
+                onChange={handleSearch}
               />
             </div>
           </div>
@@ -74,31 +82,28 @@ const Livebrt = () => {
           <div className="listProblem">
             <pre>
               {itemPage.map((data, index) => {
-                {
-                  return (
-                    <div key={index}>
-                      เวลา{" "}
-                      {moment(data.timedate, "YYYY-MM-DD hh:mm:ss").format(
-                        "hh:mm A"
-                      )}{" "}
-                      เครื่อง {data.Machine} ปัญหา{" "}
-                      {data.Problem ? data.Problem : "ไม่มีการบันทึกข้อมูล"}{" "}
-                      <p>
-                        Code {data.LossCode} เวลาหยุด{" "}
-                        {moment
-                          .utc(
-                            moment
-                              .duration(parseInt(data.LossTime), "second")
-                              .asMilliseconds()
-                          )
-                          .format("mm:ss")}{" "}
-                        แก้ไข{" "}
-                        {data.Action ? data.Action : "ไม่มีการบันทึกข้อมูล"}
-                      </p>
-                      <hr />
-                    </div>
-                  );
-                }
+                return (
+                  <div key={index}>
+                    เวลา{" "}
+                    {moment(data.timedate, "YYYY-MM-DD hh:mm:ss").format(
+                      "hh:mm A"
+                    )}{" "}
+                    เครื่อง {data.Machine} ปัญหา{" "}
+                    {data.Problem ? data.Problem : "ไม่มีการบันทึกข้อมูล"}{" "}
+                    <p>
+                      Code {data.LossCode} เวลาหยุด{" "}
+                      {moment
+                        .utc(
+                          moment
+                            .duration(parseInt(data.LossTime), "second")
+                            .asMilliseconds()
+                        )
+                        .format("mm:ss")}{" "}
+                      แก้ไข {data.Action ? data.Action : "ไม่มีการบันทึกข้อมูล"}
+                    </p>
+                    <hr />
+                  </div>
+                );
               })}
             </pre>
             <div className="pagination">

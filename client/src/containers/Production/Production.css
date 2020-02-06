@@ -23,3 +23,7 @@ h4 {
 .bodyProduction {
   margin: 20px;
 }
+
+span h4 {
+  display: inline;
+}

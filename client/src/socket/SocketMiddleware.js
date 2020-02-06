@@ -13,19 +13,37 @@ const SocketMiddleware = store => {
     switch (action.type) {
       case actiontypes.MQTT_CONNECT:
         if (mqttSocket !== null) {
-          mqttSocket.end();
+          mqttSocket.unsubscribe(
+            [
+              "/REALTIME/NEWLINE/PARSER/STATUS/#",
+              "/REALTIME/NEWLINE/PARSER/PRODUCTION/#"
+            ],
+            err => {
+              console.log(err);
+            }
+          );
+          mqttSocket.end(true);
           store.dispatch(ws_disconnected());
         }
 
         // Connect to MQTT BROKER VIA WEBSOCKET
-        mqttSocket = mqtt.connect("mqtt://78625b72.ngrok.io");
+        mqttSocket = mqtt.connect("mqtt://172.16.76.55:9001");
 
         store.dispatch(ws_connected());
 
         break;
       case actiontypes.MQTT_DISCONNECT:
         if (mqttSocket !== null) {
-          mqttSocket.end();
+          mqttSocket.unsubscribe(
+            [
+              "/REALTIME/NEWLINE/PARSER/STATUS/#",
+              "/REALTIME/NEWLINE/PARSER/PRODUCTION/#"
+            ],
+            err => {
+              console.log(err);
+            }
+          );
+          mqttSocket.end(true);
           store.dispatch(ws_disconnected());
         }
         mqttSocket = null;
@@ -57,7 +75,6 @@ const SocketMiddleware = store => {
               store.dispatch(
                 ws_onMessageProduction(JSON.parse(message.toString()))
               );
-              console.log(JSON.parse(message.toString()));
             });
           } catch (err) {
             console.log(err);

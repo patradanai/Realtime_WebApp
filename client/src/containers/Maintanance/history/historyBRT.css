@@ -9,3 +9,11 @@
 hr {
   margin: 20px;
 }
+
+.Icon {
+  margin: 10px;
+}
+
+span h4 {
+  display: inline;
+}

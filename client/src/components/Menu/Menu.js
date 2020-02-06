@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Menu, Container, Icon } from "semantic-ui-react";
-import logo from "../../MyIcon.png";
 import { Link } from "react-router-dom";
 import "./Menu.css";
 

@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Header, Icon, Table, Pagination } from "semantic-ui-react";
 import axios from "axios";
 import "./index.css";
+import { ws_disconnect } from "../../store/Actions";
 import moment from "moment";
 
 const History = () => {
+  const dispatch = useDispatch();
   const [handleText, sethandleText] = useState("");
   const [payload, setPayload] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line
   const [itempage, setItemPage] = useState(10);
 
   useEffect(() => {
-    const updatePayload = [...payload];
-    setFilterData(
-      updatePayload.slice(
-        (page - 1) * itempage,
-        (page - 1) * itempage + itempage
-      )
-    );
-  }, [payload]);
+    dispatch(ws_disconnect());
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const updatePayload = [...payload];
@@ -29,8 +28,17 @@ const History = () => {
         (page - 1) * itempage + itempage
       )
     );
-    console.log(filterData);
-  }, [page]);
+  }, [payload, page, itempage]);
+
+  useEffect(() => {
+    const updatePayload = [...payload];
+    setFilterData(
+      updatePayload.slice(
+        (page - 1) * itempage,
+        (page - 1) * itempage + itempage
+      )
+    );
+  }, [page, itempage, payload]);
 
   const handleSearch = async e => {
     e.preventDefault();
