@@ -117,7 +117,7 @@ const HistoryBRT = () => {
                         <Table.Cell key={index + "timestop"}>
                           {moment(data.timedate, "YYYY-MM-DD hh:mm:ss")
                             .subtract(data.LossTime, "seconds")
-                            .format("hh:mm A")}
+                            .format("DD/MM/YYYY, hh:mm A")}
                         </Table.Cell>
                         <Table.Cell key={index + "Machine"}>
                           {data.Machine}
