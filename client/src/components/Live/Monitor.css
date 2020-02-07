@@ -1,0 +1,15 @@
+.alert {
+  background-color: lightcoral;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: medium;
+}
+
+.normal {
+  background-color: lightgreen;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: medium;
+}
+
+.Table {
+  text-align: center;
+}

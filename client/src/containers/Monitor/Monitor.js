@@ -144,7 +144,7 @@ class Monitor extends Component {
                   <Table.HeaderCell>Diff</Table.HeaderCell>
                   <Table.HeaderCell>LossCode</Table.HeaderCell>
                   <Table.HeaderCell>Elasp Time</Table.HeaderCell>
-                  <Table.HeaderCell>Details</Table.HeaderCell>
+                  <Table.HeaderCell>Call Help</Table.HeaderCell>
                   <Table.HeaderCell>Operator</Table.HeaderCell>
                   <Table.HeaderCell>Maintance</Table.HeaderCell>
                 </Table.Row>
@@ -178,11 +178,11 @@ class Monitor extends Component {
                                 moment
                                   .duration(
                                     parseInt(Status[index].ElspTime),
-                                    "second"
+                                    "seconds"
                                   )
                                   .asMilliseconds()
                               )
-                              .format("mm:ss")
+                              .format("HH:mm:ss")
                           : null
                       }
                       Details={Status[index].Details}

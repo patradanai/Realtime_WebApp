@@ -85,13 +85,13 @@ const Livebrt = () => {
                 return (
                   <div key={index}>
                     เวลา{" "}
-                    {moment(data.timedate, "YYYY-MM-DD hh:mm:ss").format(
-                      "hh:mm A"
-                    )}{" "}
+                    {moment(data.timedate, "YYYY-MM-DD hh:mm:ss")
+                      .subtract(data.LossTime, "seconds")
+                      .format("hh:mm A")}{" "}
                     เครื่อง {data.Machine} ปัญหา{" "}
                     {data.Problem ? data.Problem : "ไม่มีการบันทึกข้อมูล"}{" "}
                     <p>
-                      Code {data.LossCode} เวลาหยุด{" "}
+                      Code {data.LossCode} หยุด{" "}
                       {moment
                         .utc(
                           moment
@@ -99,7 +99,8 @@ const Livebrt = () => {
                             .asMilliseconds()
                         )
                         .format("mm:ss")}{" "}
-                      แก้ไข {data.Action ? data.Action : "ไม่มีการบันทึกข้อมูล"}
+                      นาที แก้ไข{" "}
+                      {data.Action ? data.Action : "ไม่มีการบันทึกข้อมูล"}
                     </p>
                     <hr />
                   </div>

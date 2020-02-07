@@ -1,16 +1,17 @@
 import React from "react";
 import { Table } from "semantic-ui-react";
+import "./Monitor.css";
 
 const Live = props => {
   return (
-    <Table.Row>
+    <Table.Row className="Table">
       <Table.Cell className="">{props.Name}</Table.Cell>
       <Table.Cell
         className={
           props.Status === "PRODUCTION"
-            ? "positive"
+            ? "normal"
             : props.Status === "STOP"
-            ? "negative"
+            ? "alert"
             : ""
         }
       >
@@ -21,9 +22,7 @@ const Live = props => {
       <Table.Cell className="">{props.Good}</Table.Cell>
       <Table.Cell className="">{props.NG}</Table.Cell>
       <Table.Cell
-        className={
-          props.Diff <= 0 ? "negative" : props.Diff > 0 ? "positive" : ""
-        }
+        className={props.Diff <= 0 ? "alert" : props.Diff > 0 ? "normal" : ""}
       >
         {props.Diff}
       </Table.Cell>
