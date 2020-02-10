@@ -62,6 +62,30 @@ class Monitor extends Component {
     }
   };
 
+  NoProduction = payload => {
+    const LC4 = [
+      "NP",
+      "SC",
+      "SV",
+      "LD",
+      "TR",
+      "AD",
+      "SP",
+      "PC",
+      "IN",
+      "FE",
+      "GR",
+      "SM",
+      "MAT",
+      "MBK",
+      "CM"
+    ];
+    const result = LC4.find(data => {
+      return data === payload;
+    });
+    return result;
+  };
+
   componentDidMount() {
     this._unMount = true;
     // Connect to MQTT
@@ -77,7 +101,9 @@ class Monitor extends Component {
         let ratio = 0;
         let diff = 0;
         for (let i = 0; i < this.state.Machine.length; i++) {
-          count += this.Target(this.props.Status[i].Target);
+          count += this.NoProduction(this.props.Status[i].LossCode)
+            ? 0
+            : this.Target(this.props.Status[i].Target);
           Result += this.Result(
             this.props.Status[i].Good,
             this.props.Status[i].NG
@@ -103,6 +129,7 @@ class Monitor extends Component {
   render() {
     const { Status } = this.props;
     const { Machine } = this.state;
+
     return (
       <React.Fragment>
         <div className="bodyMonitor">
@@ -162,7 +189,11 @@ class Monitor extends Component {
                           ? "STOP"
                           : ""
                       }
-                      Target={this.Target(Status[index].Target)}
+                      Target={
+                        this.NoProduction(Status[index].LossCode)
+                          ? "0"
+                          : this.Target(Status[index].Target)
+                      }
                       Result={this.Result(Status[index].Good, Status[index].NG)}
                       Good={Status[index].Good}
                       NG={Status[index].NG}

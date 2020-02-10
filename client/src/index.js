@@ -11,6 +11,7 @@ import logger from "redux-logger";
 import { Provider } from "react-redux";
 import Reducers from "../src/store/Reducers/reducers";
 import SocketMiddleware from "../src/socket/SocketMiddleware";
+import "semantic-ui-css/semantic.min.css";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
