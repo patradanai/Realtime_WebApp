@@ -28,6 +28,12 @@ const maintain = require("./routes/maintain");
 
 app.use("/api/maintain", maintain);
 
+// Login
+
+const login = require("./routes/login");
+
+app.use("/api/login", login);
+
 app.listen(5000, () => {
   console.log("SERVER RUNNING");
 });
