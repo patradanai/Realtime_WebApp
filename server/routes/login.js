@@ -3,6 +3,7 @@ const router = express.Router();
 const sql = require("mssql");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 //Initiallising connection string
 const dbConfig = {
@@ -15,9 +16,52 @@ const dbConfig = {
 router.post("/registor", async (req, res) => {
   // Prepare Query messsage
   const obj = req.body;
-  const hashPassword = bcrypt.hashSync(req.body.password, 8);
+  const hashPassword = bcrypt.hashSync(obj.password, 8);
+
+  // Check existing USERNAME , EMAIL
+
+  const checkQuery =
+    "SELECT * FROM [Authority_NMP] WHERE [username] = '" +
+    obj.user +
+    "' OR [email] = '" +
+    obj.email +
+    "'";
+
+  // REGISTOR
+
   const query =
-    "INSERT [username],[password],[email],[user_type] VALUES() FROM [MT700PDDB].[dbo].[Authority_NMP] WHERE [username]";
+    "INSERT INTO [Authority_NMP] ([username],[password],[email],[user_type],[timedate]) VALUES('" +
+    obj.user +
+    "','" +
+    hashPassword +
+    "','" +
+    obj.email +
+    "','" +
+    obj.type +
+    "','" +
+    moment() +
+    "')";
+
+  try {
+    const pool = await sql.connect(dbConfig);
+    const dataQuery = await pool.request().query(checkQuery);
+    console.log(dataQuery.recordset.length);
+    if (dataQuery.recordset.length > 0) {
+      res.send("USER EXISTING");
+      console.log("USER EXISTING");
+    } else {
+      // Async connect SQL SERVER AND Align Group
+      try {
+        const pool2 = await sql.connect(dbConfig);
+        const dataQuery2 = await pool2.request().query(query);
+        res.send(dataQuery2);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.post("/", async (req, res) => {

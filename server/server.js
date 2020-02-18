@@ -32,7 +32,7 @@ app.use("/api/maintain", maintain);
 
 const login = require("./routes/login");
 
-app.use("/api/login", login);
+app.use("/api/auth", login);
 
 app.listen(5000, () => {
   console.log("SERVER RUNNING");
