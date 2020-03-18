@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const moment = require("moment");
-
+const tools = require("./jwthandle");
 //Initiallising connection string
 const dbConfig = {
   user: "sa",
@@ -42,6 +41,7 @@ router.post("/registor", async (req, res) => {
     moment() +
     "')";
 
+  // Concept is Check User existing --> if have not register
   try {
     const pool = await sql.connect(dbConfig);
     const dataQuery = await pool.request().query(checkQuery);
@@ -86,7 +86,9 @@ router.post("/", async (req, res) => {
       if (!passwordIsvalid) {
         res.status(401).json("ERROR");
       } else {
-        res.status(200);
+        res
+          .json({ id: identifier, token: tools.getToKen(identifier) })
+          .status(200);
       }
     } else {
       res.status(401).json({ errors: { form: "Invalid Credentials" } });
@@ -94,6 +96,24 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.post("/access", (req, res) => {
+  const token = req.headers["x-access-token"];
+
+  if (!token) {
+    return res.status(401).send({ auth: false, message: "No TOken Provided" });
+  }
+
+  const tokenAccess = tools.verifyToken(token);
+
+  return res
+    .json({
+      uid: tokenAccess.uid,
+      iat: tokenAccess.iat,
+      exp: tokenAccess.exp
+    })
+    .status(200);
 });
 
 module.exports = router;
