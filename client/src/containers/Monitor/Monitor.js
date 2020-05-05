@@ -6,7 +6,7 @@ import {
   ws_connect,
   ws_disconnect,
   ws_onStatus,
-  ws_disconnected
+  ws_disconnected,
 } from "../../store/Actions";
 import "./Monitor.css";
 import moment from "moment";
@@ -24,12 +24,12 @@ class Monitor extends Component {
         "NMPSC-406",
         "NMPSC-407",
         "NMPSC-408",
-        "NMPSC-409"
+        "NMPSC-409",
       ],
       Target: 0,
       Output: 0,
       Ratio: 0,
-      diff: 0
+      diff: 0,
     };
     this._unMount = false;
     this.setTime = null;
@@ -44,10 +44,10 @@ class Monitor extends Component {
     }
   };
 
-  Target = payload => {
+  Target = (payload) => {
     const target = parseInt(payload);
     if (target >= 0) {
-      return Math.ceil(target * 5 * 0.63);
+      return Math.ceil(target);
     } else {
       return 0;
     }
@@ -62,7 +62,7 @@ class Monitor extends Component {
     }
   };
 
-  NoProduction = payload => {
+  NoProduction = (payload) => {
     const LC4 = [
       "NP",
       "SC",
@@ -78,9 +78,9 @@ class Monitor extends Component {
       "SM",
       "MAT",
       "MBK",
-      "CM"
+      "CM",
     ];
-    const result = LC4.find(data => {
+    const result = LC4.find((data) => {
       return data === payload;
     });
     return result;
@@ -189,11 +189,7 @@ class Monitor extends Component {
                           ? "STOP"
                           : ""
                       }
-                      Target={
-                        this.NoProduction(Status[index].LossCode)
-                          ? "0"
-                          : this.Target(Status[index].Target)
-                      }
+                      Target={this.Target(Status[index].Target)}
                       Result={this.Result(Status[index].Good, Status[index].NG)}
                       Good={Status[index].Good}
                       NG={Status[index].NG}
@@ -231,19 +227,19 @@ class Monitor extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     Status: state.MQTT.msgPacket,
-    Connected: state.MQTT.connected
+    Connected: state.MQTT.connected,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     ws_connect: () => dispatch(ws_connect()),
     ws_disconnect: () => dispatch(ws_disconnect()),
     ws_disconnected: () => dispatch(ws_disconnected()),
-    ws_Status: () => dispatch(ws_onStatus())
+    ws_Status: () => dispatch(ws_onStatus()),
   };
 };
 

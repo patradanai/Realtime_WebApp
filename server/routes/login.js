@@ -66,7 +66,6 @@ router.post("/registor", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { identifier, password } = req.body;
-
   // Prepare Query messsage
   const query =
     "SELECT [username],[password],[email],[user_type] FROM [MT700PDDB].[dbo].[Authority_NMP] WHERE [username] = '" +
